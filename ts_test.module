@@ -1,0 +1,40 @@
+<?php
+/**
+ * @file
+ * ThinkShout test module.
+ * User: dsasser
+ * Date: 6/3/13
+ *
+ */
+
+/**
+ * Implements hook_permission
+ */
+function ts_test_permission() {
+  return array(
+    'administer thinkshout test' => array(
+      'title' => t('Administer ThinkShout Test'),
+      'description' => t('Perform administration tasks for ThinkShout Test.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_menu()
+ */
+function ts_test_menu() {
+  $items['ts-test'] = array(
+    'title' => t('ThinkShout Test'),
+    'description' => t('ThinkShout Test form'),
+    'access callback' => 'administer thinkshout test',
+    'page callback' => 'ts_test_page',
+  );
+}
+
+/**
+ * Page callback for 'ts-test' menu item
+ */
+function ts_test_page() {
+  $output = "<h1>Hi there</h1>";
+  return $output;
+}

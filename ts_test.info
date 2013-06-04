@@ -1,0 +1,4 @@
+name = ThinkShout Test
+description = A code test for ThinkShout
+core = 7.x
+files[] = ts_test.module

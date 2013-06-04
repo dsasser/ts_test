@@ -26,15 +26,64 @@ function ts_test_menu() {
   $items['ts-test'] = array(
     'title' => t('ThinkShout Test'),
     'description' => t('ThinkShout Test form'),
-    'access callback' => 'administer thinkshout test',
-    'page callback' => 'ts_test_page',
+    'access arguments' => array('administer thinkshout test'),
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('ts_test_form'),
   );
+  return $items;
 }
 
 /**
  * Page callback for 'ts-test' menu item
  */
-function ts_test_page() {
-  $output = "<h1>Hi there</h1>";
-  return $output;
+function ts_test_form($form, $form_state) {
+  $form['number-1'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Enter a number'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+  $form['number-2'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Enter another number'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => 'Add'
+  );
+  return $form;
 }
+
+/**
+ * Validates ts_test_form values
+ *
+ * @param $form
+ * @param $form_state
+ */
+function ts_test_form_validate($form, &$form_state) {
+  if (!is_numeric($form_state['values']['number-1'])) {
+    form_set_error('number-1', t('Number 1 is not a number'));
+  }
+  if (!is_numeric($form_state['values']['number-2'])) {
+    form_set_error('number-2', t('Number 2 is not a number'));
+  }
+}
+
+/**
+ * Submit handler for ts_test_form
+ *
+ * @param $form
+ * @param $form_state
+ */
+function ts_test_form_submit($form, &$form_state) {
+  $number1 = $form_state['values']['number-1'];
+  $number2 = $form_state['values']['number-2'];
+  $sum = $number1 + $number2;
+  drupal_set_message(t('Total is @sum', array('@sum' => $sum)));
+}
+
+

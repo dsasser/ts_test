@@ -40,6 +40,7 @@ function ts_test_form($form, $form_state) {
   $form['number-1'] = array(
     '#type' => 'textfield',
     '#title' => t('Enter a number'),
+    '#description' => t('Number 1'),
     '#size' => 60,
     '#maxlength' => 128,
     '#required' => TRUE,
@@ -47,6 +48,7 @@ function ts_test_form($form, $form_state) {
   $form['number-2'] = array(
     '#type' => 'textfield',
     '#title' => t('Enter another number'),
+    '#description' => t('Number 2'),
     '#size' => 60,
     '#maxlength' => 128,
     '#required' => TRUE,
